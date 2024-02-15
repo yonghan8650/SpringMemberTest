@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-		<h1>/member/main.jsp</h1>
-		<h2>${sessionScope.id }님</h2>
-		
-		<a href="/member/info">내 정보 보기</a>
+	<h1>/member/info.jsp</h1>
+	아이디: ${resultVO.userid } <br>
+	이름: ${resultVO.username } <br>
+	이메일: ${resultVO.useremail } <br>
 </body>
 </html>

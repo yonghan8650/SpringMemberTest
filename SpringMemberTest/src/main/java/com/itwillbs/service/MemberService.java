@@ -8,4 +8,7 @@ public interface MemberService{
 	
 	//로그인
 	public MemberVO memberLogin(MemberVO vo);
+	
+	//내 정보 보기
+	public MemberVO memberInfo(String userid);
 }

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -78,6 +79,19 @@ public class MemberController {
 			logger.debug(" memberMainGET() 실행 ");
 			logger.debug(" 메인페이지로 이동 ");
 			
-			return "redirect:/member/main";
+			return "/member/main";
+		}
+		
+		// 내 정보 보기
+		@GetMapping(value="/info")
+		public String memberInfoGET(HttpSession session, Model model) {
+			logger.debug(" memberInfoGET(MemberVO vo) 실행 ");
+			
+			String id = (String)session.getAttribute("id");
+			
+			MemberVO resultVO = mService.memberInfo(id);
+			model.addAttribute("resultVO", resultVO);
+			
+			return "/member/info";
 		}
 }
