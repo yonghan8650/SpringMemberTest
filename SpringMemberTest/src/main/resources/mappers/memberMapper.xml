@@ -13,7 +13,7 @@
    <!-- 로그인 -->
   <select id="loginMember" resultType="MemberVO">
   	select userid,userpw from tbl_member
-  	where userid = {#userid} and userpw = {#userpw}
+  	where userid = #{userid} and userpw = #{userpw}
   </select>  
   
   <!-- 내 정보 보기 -->

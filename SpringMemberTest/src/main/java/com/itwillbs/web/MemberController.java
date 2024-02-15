@@ -1,6 +1,7 @@
 package com.itwillbs.web;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class MemberController {
 	@GetMapping(value="/memberjoin")
 	public void memberJoinGET() {
 		logger.debug(" memberJoinGET() 실행 ");
-		logger.debug(" 뷰페이지로 이동 (WEB-INF/views/member/memberjoin) ");
+		logger.debug(" 회원가입 페이지로 이동 ");
 	}
 	
 	
@@ -38,9 +39,45 @@ public class MemberController {
 	public String memberJoinPOST(MemberVO vo) {
 		logger.debug(" memberJoinPOST() 실행 ");
 		logger.debug("전달 정보 : " + vo );
-		mService.insertMember(vo);
+		mService.memberJoin(vo);
 		
 		return "redirect:/member/login";		
 	}
 	
+	// 로그인 입력
+		//http://localhost:8088/member/login
+		@GetMapping(value="/login")
+		public void memberLoginGET() {
+			logger.debug(" memberLoginGET() 실행 ");
+			logger.debug(" 로그인 페이지로 이동 ");
+		}
+		
+		// 로그인 처리
+		@PostMapping(value="/login")
+		public String memberLoginPOST(MemberVO vo, HttpSession session) {
+			logger.debug(" memberLoginPOST() 실행 ");
+			logger.debug(" 전달 정보 : " + vo);
+			MemberVO resultVO = mService.memberLogin(vo);
+			
+			String addr ="";
+			if(resultVO == null) {
+				logger.debug(" 로그인 실패 ");
+				addr = "/member/login";
+			} else {
+				logger.debug(" 로그인 성공 ");
+				session.setAttribute("id", resultVO.getUserid());
+				addr = "/member/main";
+			}
+			
+			return "redirect:"+addr;
+		}
+		
+		// 메인 페이지
+		@GetMapping(value="/main")
+		public String memberMainGET() {
+			logger.debug(" memberMainGET() 실행 ");
+			logger.debug(" 메인페이지로 이동 ");
+			
+			return "redirect:/member/main";
+		}
 }

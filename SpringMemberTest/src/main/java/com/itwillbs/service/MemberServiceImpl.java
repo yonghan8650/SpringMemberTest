@@ -18,10 +18,17 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDAO mdao;
 	
 	@Override
-	public void insertMember(MemberVO vo) {
-		logger.debug(" S : insertMember(MemberVO vo) 실행 ");
+	public void memberJoin(MemberVO vo) {
+		logger.debug(" S : memberJoin(MemberVO vo) 실행 ");
 		mdao.insertMember(vo);
 		
+	}
+
+	@Override
+	public MemberVO memberLogin(MemberVO vo) {
+		logger.debug(" S : memberLogin(MemberVO vo) 실행 ");
+		
+		return mdao.loginMember(vo);		
 	}
 	
 }
