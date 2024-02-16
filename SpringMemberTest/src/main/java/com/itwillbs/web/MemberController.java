@@ -107,7 +107,7 @@ public class MemberController {
 		public String memberUpdatePOST(HttpSession session, MemberVO vo) {
 			logger.debug(" memberUpdatePOST() 실행 ");
 			
-			String id = (String)session.getAttribute("id");
+			session.getAttribute("id");
 			int result = mService.memberUpdate(vo);
 			String addr = "";
 			if(result == 0) {
@@ -116,6 +116,34 @@ public class MemberController {
 			} else {
 				logger.debug("정보수정 성공");
 				addr="/member/main";
+			}
+			return "redirect:"+addr;
+		}
+		
+		// 회원탈퇴 입력
+		@GetMapping(value="/delete")
+		public void memberDeleteGET() {
+			logger.debug(" memberDeleteGET() 실행 ");
+			logger.debug(" 회원탈퇴페이지로 이동 ");			
+		}
+		
+		
+		// 회원탈퇴 처리
+		@PostMapping(value="/delete")
+		public String memberDeletePOST(HttpSession session, MemberVO vo) {
+			logger.debug(" memberDeletePOST() 실행 ");
+			session.getAttribute("id");
+			int result = mService.memberDelete(vo);
+			String addr = "";
+			if (result == 1) {
+				// 로그인한 사용자의 세션 초기화
+				session.invalidate();
+				logger.debug(" 세션 초기화 ");
+				logger.debug(" 정상 삭제 - 로그인페이지로 이동 ");
+				addr="/member/login";
+			} else {
+				logger.debug(" 삭제 실패 - 회원탈퇴페이지로 이동 ");
+				addr="/member/delete";
 			}
 			return "redirect:"+addr;
 		}

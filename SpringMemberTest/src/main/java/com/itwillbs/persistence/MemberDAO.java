@@ -19,7 +19,7 @@ public interface MemberDAO {
 	public int updateMember(MemberVO vo);
 	
 	// 회원탈퇴
-	public void deleteMember(MemberVO vo);
+	public int deleteMember(MemberVO vo);
 	
 	// 회원 리스트
 	public List<MemberVO> getMemberList();

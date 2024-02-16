@@ -66,13 +66,14 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	// 회원탈퇴
 	@Override
-	public void deleteMember(MemberVO dvo) {
+	public int deleteMember(MemberVO vo) {
 		logger.debug(" deleteMember(MemberVO dvo) 실행 ");
 		logger.debug(" sqlSession -> mapper 호출 ");
 		
-		sqlSession.selectOne(NAMESPACE + ".deleteMember", dvo);
+		logger.debug(" deleteMember 호출 완료 ");
 		
-		logger.debug(" deleteMember 호출 완료 ");		
+		return sqlSession.delete(NAMESPACE + ".deleteMember", vo);
+				
 	}
 	
 	// 회원리스트
