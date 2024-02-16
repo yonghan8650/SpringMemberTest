@@ -54,13 +54,14 @@ public class MemberDAOImpl implements MemberDAO {
 	
 	// 내 정보 수정
 	@Override
-	public void updateMember(MemberVO uvo) {
+	public int updateMember(MemberVO uvo) {
 		logger.debug(" updateMember(MemberVO uvo) 실행 ");
 		logger.debug(" sqlSession -> mapper 호출 ");
 		
-		sqlSession.update(NAMESPACE + ".updateMember", uvo);
-		
 		logger.debug(" updateMember 호출 완료");
+		
+		return sqlSession.update(NAMESPACE + ".updateMember", uvo);
+		
 	}
 	
 	// 회원탈퇴

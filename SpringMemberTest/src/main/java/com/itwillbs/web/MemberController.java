@@ -72,7 +72,7 @@ public class MemberController {
 			
 			return "redirect:"+addr;
 		}
-		
+		//http://localhost:8088/member/main
 		// 메인 페이지
 		@GetMapping(value="/main")
 		public String memberMainGET() {
@@ -94,4 +94,30 @@ public class MemberController {
 			
 			return "/member/info";
 		}
+		
+		// 내 정보 수정 GET
+		@GetMapping(value="/update")
+		public void memberUpdateGET() {
+			logger.debug(" memberUpdateGET() 실행 ");
+			logger.debug(" 수정페이지로 이동 ");			
+		}
+		
+		// 내 정보 수정 POST
+		@PostMapping(value="/update")
+		public String memberUpdatePOST(HttpSession session, MemberVO vo) {
+			logger.debug(" memberUpdatePOST() 실행 ");
+			
+			String id = (String)session.getAttribute("id");
+			int result = mService.memberUpdate(vo);
+			String addr = "";
+			if(result == 0) {
+				logger.debug(" 정보수정 실패");
+				addr="/member/update";
+			} else {
+				logger.debug("정보수정 성공");
+				addr="/member/main";
+			}
+			return "redirect:"+addr;
+		}
+		
 }
