@@ -12,6 +12,7 @@
 		
 		<a href="/member/info">내 정보 보기</a>
 		<a href="/member/update">내 정보 수정</a>
+		<a href="/member/logout">로그아웃</a>
 		<a href="/member/delete">회원 탈퇴</a>
 </body>
 </html>

@@ -148,4 +148,12 @@ public class MemberController {
 			return "redirect:"+addr;
 		}
 		
+		// 로그아웃 처리
+		@GetMapping(value="/logout")
+		public String memberLogoutGET(HttpSession session) {
+			logger.debug(" memberLogoutGET() 실행 ");
+			session.invalidate();
+			
+			return "redirect:/member/login";
+		}
 }
